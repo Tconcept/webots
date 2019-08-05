@@ -1,0 +1,175 @@
+#VRML_SIM R2019a utf8
+WorldInfo {
+  basicTimeStep 64
+  contactProperties [
+    ContactProperties {
+      material2 "dumbbell"
+      coulombFriction [
+        0
+      ]
+    }
+  ]
+}
+Viewpoint {
+  orientation -0.9940904645380055 -0.10403926109199453 -0.03098355154019866 0.7385705242458914
+  position 0.018682328647428276 1.4288387492555261 1.17310062417212
+}
+TexturedBackground {
+}
+TexturedBackgroundLight {
+}
+Floor {
+  size 1 1
+}
+WoodenBox {
+  translation 0.3652292280064711 0.04999999999999423 0.3896447771661715
+  rotation 0 1 0 0.7853981610000004
+  size 0.1 0.1 0.1
+}
+WoodenBox {
+  translation 0.2408925182922365 0.049999999999998226 -0.13459417698707532
+  rotation -1 1.2246467991473532e-16 -1.6122780329850828e-17 2.8797932761795866
+  name "wooden box(2)"
+  size 0.1 0.1 0.1
+  mass 0.2
+}
+WoodenBox {
+  translation -0.3318883979595787 0.049999999999996894 0.023151726240556503
+  rotation 0 1 0 5.497787127
+  name "wooden box(1)"
+  size 0.1 0.1 0.1
+}
+WoodenBox {
+  translation -0.42897230365600053 0.04999999999999867 -0.4308412881261874
+  name "wooden box(3)"
+  size 0.1 0.1 0.1
+}
+E-puck {
+  controller "EPuckAvoidanceCollision"
+}
+Solid {
+  translation -0.03 0.2 -0.06999999999999998
+  children [
+    Shape {
+      appearance PBRAppearance {
+        baseColor 0.4470588235294118 0.6235294117647059 0.8117647058823529
+        roughness 1
+        metalness 0
+      }
+      geometry DEF BALL_GEOMETRY Sphere {
+        radius 0.05
+        subdivision 2
+      }
+    }
+  ]
+  boundingObject USE BALL_GEOMETRY
+  physics Physics {
+  }
+}
+Solid {
+  translation 0 0.05 -0.5000000000000002
+  children [
+    DEF OUTER_WALL Shape {
+      geometry Box {
+        size 1 0.1 0.01
+      }
+    }
+  ]
+  name "solid(1)"
+  boundingObject USE OUTER_WALL
+}
+Solid {
+  translation 0 0.05 0.5000000000000002
+  children [
+    USE OUTER_WALL
+  ]
+  name "solid(2)"
+  boundingObject USE OUTER_WALL
+}
+Solid {
+  translation -0.5000000000000001 0.05 -7.19234503369058e-09
+  rotation 0 0.9999999999999999 0 4.712388966
+  children [
+    USE OUTER_WALL
+  ]
+  name "solid(3)"
+  boundingObject USE OUTER_WALL
+}
+Solid {
+  translation 0.5000000000000001 0.05 7.19234503369058e-09
+  rotation 0 0.9999999999999999 0 4.712388966
+  children [
+    USE OUTER_WALL
+  ]
+  name "solid(4)"
+  boundingObject USE OUTER_WALL
+}
+Solid {
+  translation 0 0.09999999999999999 0.17
+  rotation 1 0 0 1.5708
+  children [
+    DEF GO Group {
+      children [
+        Transform {
+          translation 0 -0.05 0
+          children [
+            Shape {
+              appearance PBRAppearance {
+                baseColorMap ImageTexture {
+                  url [
+                    "textures/grid.png"
+                  ]
+                }
+              }
+              geometry Sphere {
+                radius 0.03
+                subdivision 2
+              }
+            }
+          ]
+        }
+        Transform {
+          translation 0 0.05 0
+          children [
+            DEF dum_sphere Shape {
+              appearance PBRAppearance {
+                baseColorMap ImageTexture {
+                  url [
+                    "textures/grass.jpg"
+                  ]
+                }
+              }
+              geometry Sphere {
+                radius 0.03
+                subdivision 2
+              }
+            }
+          ]
+        }
+        Shape {
+          appearance PBRAppearance {
+            baseColorMap ImageTexture {
+              url [
+                "textures/chessboard.jpg"
+              ]
+            }
+          }
+          geometry Cylinder {
+            height 0.1
+            radius 0.01
+          }
+        }
+      ]
+    }
+  ]
+  name "solid(5)"
+  contactMaterial "dumbbell"
+  boundingObject USE GO
+  physics Physics {
+    density -1
+    mass 2
+    centerOfMass [
+      0 0.01 0
+    ]
+  }
+}
