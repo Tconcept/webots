@@ -10,7 +10,7 @@
 #include <webots/Robot.hpp>
 #include <webots/Motor.hpp>
 #include <webots/DistanceSensor.hpp>
-
+#include <webots/Camera.hpp>
 #include <math.h>
 // All the webots classes are defined in the "webots" namespace
 #define TIME_STEP 64
@@ -20,7 +20,7 @@ using namespace webots;
 
 #define MAX_SPEED 6.28
 
-
+  
 // This is the main program of your controller.
 // It creates an instance of your Robot instance, launches its
 // function(s) and destroys it at the end of the execution.
@@ -34,6 +34,17 @@ int main(int argc, char **argv)
   Robot *robot = new Robot();
   
   
+   
+class Camera : public Device {
+    virtual void enable(int samplingPeriod);
+    virtual void disable();
+    int getSamplingPeriod() const;
+    // ...
+  };
+   
+   
+   
+   
 
   // get the time step of the current world.
   int timeStep = (int) robot->getBasicTimeStep();
